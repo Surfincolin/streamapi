@@ -6,17 +6,26 @@ var stream = require('./routes/streams');
 
 var app = express();
 
-app.configure(function () {
+app.configure('development', function () {
     app.set('port', process.env.PORT || 3000);
     app.use(express.logger('dev'));  /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser()),
     app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function () {
+    app.set('port', process.env.PORT || 80);
+    app.use(express.logger('dev'));  /* 'default', 'short', 'tiny', 'dev' */
+    app.use(express.bodyParser()),
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.errorHandler());
 });
 
 // development only
-if ('development' == app.get('env')) {
+/*if ('development' == app.get('env')) {
   app.use(express.errorHandler());
-}
+};*/
 
 app.get('/streams', stream.findAll);
 app.get('/streams/:id', stream.findById);
