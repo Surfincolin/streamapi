@@ -25,7 +25,7 @@
     <script src="http://use.edgefonts.net/andika.js"></script>
     <script src="http://use.edgefonts.net/arvo.js"></script>
 
-	<script type="text/javascript" src="socket.io/socket.io.js"></script>
+<!--	<script type="text/javascript" src="socket.io/socket.io.js"></script> -->
     <script>
 // UNCOMMENT THIS CODE IF YOU USE THE "serverwithanalytics" SERVER
 //        var socket = io.connect();
@@ -58,7 +58,22 @@
 
 </div>
 <!-- /container -->
+<script type="text/javascript">
+function buttonAction(url)
+{
+$.ajax({
+    url: url,
+    type: 'GET',
+    crossDomain: true,
+    //datatype: 'application/json',
+    success: function() { alert("Success"); },
+    error: function() { alert('Failed!'); },
+    //beforeSend: setHeader
+  
+  });
+};
 
+</script>
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

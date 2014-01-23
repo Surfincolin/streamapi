@@ -49,7 +49,7 @@ window.Stream = Backbone.Model.extend({
         embed: "<div>COMING SOON</div>",
         streamName: "",
         description: "",
-        picture: null
+        picture: "default-stream.jpg"
     }
 });
 
