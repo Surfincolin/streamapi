@@ -37,13 +37,22 @@
                         </div>
                     </div>
 
+                     <div class="control-group">
+                        <label for="playlist" class="control-label">Playlist:</label>
+
+                        <div class="controls">
+                            <input type="text" id="playlist" name="playlist" value="<%= playlist %>"/>
+                            <span class="help-inline"></span>
+                        </div>
+                    </div>
+
                     <div class="control-group">
                         <label for="streamName" class="control-label">Stream Name:</label>
 
                         <div class="controls">
                             <input type="text" id="streamName" name="streamName" value="<%= streamName %>"/>
                             <span class="help-inline"></span>
-                            <button onclick="buttonAction('http://flipitlive:webcast@live.soundcdn.com:8086/livestreamrecord?app=live&streamname=<%= streamName %>_mid&action=startRecording')" type="button" class="btn btn-danger">Record</button>
+                            <button onclick="buttonAction('<%= streamName %>')" type="button" class="btn btn-danger">Record</button>
                             <a href="http://flipitlive:webcast@live.soundcdn.com:8086/livestreamrecord?app=live&streamname=<%= streamName %>_mid&action=stopRecording"><button type="button" class="btn btn-warning">Stop Rec</button></a>
 
                         </div>
@@ -77,10 +86,27 @@
                 </div>
 
                 <div class="span4">
-                    <div class="well" style="width: 180px;text-align: center;width:50%;margin: 0px auto;">
+                    <div class="well" style="width: 240px;text-align: center;margin: 0px auto;">
                         <p><img id="picture" width="50" src="<%= picture === null ? 'pics/default-stream.jpg' : 'pics/' + picture %>"/></p>
                         <p style="color:#999;">To change the picture, drag a new picture from your file system onto the box above.</p>
-                    </div>
+                        <!-- <div class="player">
+                            <style type="text/css">
+                                .vjs-default-skin .vjs-control-bar {
+                                        font-size: 96%
+                                }
+                                .vjs-default-skin .vjs-progress-control, .vjs-default-skin .vjs-time-controls, .vjs-default-skin .vjs-time-divider {
+                                        display: none;
+                                }
+                            </style>
+                                <script>
+                                    videojs.options.flash.swf = "http://down.soundcdn.com/fil-player/video-js.swf"
+                                </script>
+                                <div id="videocontainer" class="videocontainer">
+                                    <video id="video-player" class="video-js vjs-default-skin vjs-big-play-centered" controls width="auto" heigth="auto" poster="http://down.soundcdn.com/gkic/img/feb27-pre-roll-image.jpg" preload="none" data-setup='{"techOrder": ["flash"]}'></video>
+                                </div> 
+
+                        </div>
+                    </div> -->
                 </div>
 
             </div>

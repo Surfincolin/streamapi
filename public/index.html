@@ -16,6 +16,9 @@
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <link href="http://fil-asset-cdn.s3.amazonaws.com/fil-player/video-js.css" rel="stylesheet">
+    <script src="http://fil-asset-cdn.s3.amazonaws.com/fil-player/video.dev.js"></script>
+    
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -59,18 +62,15 @@
 </div>
 <!-- /container -->
 <script type="text/javascript">
-function buttonAction(url)
-{
-$.ajax({
-    url: url,
-    type: 'GET',
-    crossDomain: true,
-    //datatype: 'application/json',
-    success: function() { alert("Success"); },
-    error: function() { alert('Failed!'); },
-    //beforeSend: setHeader
-  
-  });
+function buttonAction(streamName) {
+    $.ajax({
+    type: 'get',
+    url: '/record',
+    data:streamName,
+    success: function (data) {
+        console.log(data)
+    }
+})
 };
 
 </script>
@@ -91,6 +91,12 @@ $.ajax({
 <script src="js/views/streamdetails.js"></script>
 <script src="js/views/about.js"></script>
 <script src="js/main.js"></script>
+
+<script type="text/javascript">
+// http://jsfiddle.net/swinginsam/NWbUG/
+
+
+</script>
 
 </body>
 </html>

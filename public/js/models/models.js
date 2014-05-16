@@ -45,6 +45,7 @@ window.Stream = Backbone.Model.extend({
         _id: null,
         name: "",
         rtmp: "",
+        playlist: "http://fil-asset-cdn.s3.amazonaws.com/fil-player/sample2.mp4",
         iframe: "<iframe></iframe>",
         embed: "<div>COMING SOON</div>",
         streamName: "",

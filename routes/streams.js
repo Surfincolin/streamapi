@@ -20,6 +20,7 @@ db.open(function(err, db) {
 });
 
 exports.findById = function(req, res) {
+    //res.setHeader('Access-Control-Allow-Origin','*');
     var id = req.params.id;
     console.log('Retrieving stream: ' + id);
     db.collection('streams', function(err, collection) {
@@ -30,29 +31,33 @@ exports.findById = function(req, res) {
 };
 
 exports.findAll = function(req, res) {
+    //res.setHeader('Access-Control-Allow-Origin','*');
     db.collection('streams', function(err, collection) {
         collection.find().toArray(function(err, items) {
-            res.send(items);
+            res.send({"streams": items});
+            //res.send(items);
         });
     });
 };
 
 exports.addStream = function(req, res) {
+    //res.setHeader('Access-Control-Allow-Origin','*');
     var stream = req.body;
     console.log('Adding stream: ' + JSON.stringify(stream));
     db.collection('streams', function(err, collection) {
-        collection.insert(stream, {safe:true}, function(err, result) {
+        collection.insert(stream.stream, {safe:true}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred'});
             } else {
                 console.log('Success: ' + JSON.stringify(result[0]));
-                res.send(result[0]);
+                res.send({"stream": result[0]});
             }
         });
     });
 }
 
 exports.rawAddStream = function(req, res) {
+    //res.setHeader('Access-Control-Allow-Origin','*');
     var streamName = req.body.streamName;
     var stream = {
         name: "FIL stream: " + req.body.streamName,
@@ -76,18 +81,19 @@ exports.rawAddStream = function(req, res) {
 }
 
 exports.updateStream = function(req, res) {
+    //res.setHeader('Access-Control-Allow-Origin','*');
     var id = req.params.id;
     var stream = req.body;
-    delete stream._id;
-    console.log('Updating stream: ' + id);
+
     console.log(JSON.stringify(stream));
     db.collection('streams', function(err, collection) {
-        collection.update({'_id':new BSON.ObjectID(id)}, stream, {safe:true}, function(err, result) {
+        collection.update({_id:new BSON.ObjectID(id)}, stream.stream, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating stream: ' + err);
                 res.send({'error':'An error has occurred'});
             } else {
                 console.log('' + result + ' document(s) updated');
+                stream.stream._id = id;
                 res.send(stream);
             }
         });
@@ -115,12 +121,13 @@ exports.deleteStream = function(req, res) {
 var populateDB = function() {
 
     var streams = [
-    {
+    { 
         name: "GKIC Day with Dan",
         rtmp: "rtmp://live.soundcdn.com/live",
         iframe: "<iframe width='652' height='375' style='border:0px' border='0' scrolling='no' src='http://global.soundcdn.com/gkic-day-with-dan' overflow='hidden'></iframe>",
         embed: "<div>COMING SOON</div>",
         streamName: "gkicddlive",
+        description: "A day with Dan Kennedy and Friends",
         picture: "default-stream.jpg"
     },
     {
